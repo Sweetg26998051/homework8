@@ -1,0 +1,142 @@
+Задача 54: Задайте двумерный массив. Напишите программу, которая упорядочит по убыванию элементы каждой строки двумерного массива(в пределах всего массива).
+
+int Number () 
+{
+    while (true)
+    {
+        string text = Console.ReadLine ();
+        if (int.TryParse(text, out int number))
+    {
+        return number;
+        break;
+    }
+    Console.WriteLine("ошибка");
+    }
+}
+
+void PrintArray(int[,] matr)
+{
+    for (int i = 0; i < matr.GetLength(0); i++)
+    {
+        for (int j = 0; j < matr.GetLength(0); j++)
+        {
+            Console.Write($"{matr [i,j]}");
+        }
+        Console.WriteLine (); 
+    }
+
+}
+
+void FillArray(int[,] matr)
+{
+    for (int i = 0; i < matr.GetLength(0); i++)
+    {
+        for (int j = 0; j < matr.GetLength(0); j++)
+        {
+            matr [i,j] = new Random ().Next (1,10);
+        }
+    }
+}
+
+int [,] SortRowMatrix (int [,]matr)
+{
+    for (int i = 0; i < matr.GetLength(0); i++)
+    {
+        for (int j = 0; j < matr.GetLength(0); j++)
+        {
+            int position = j;
+            for (int k = j + 1; k < matr.GetLength(1); k++)
+            {
+                if (matr[i,k] > matr[i,position]) position = k;
+            }
+            int value = matr [i,j];
+            matr[i,j] = matr [i,position];
+            matr[i,position] = value;
+        }
+    }
+    return matr;
+}
+Console.WriteLine ("Введите количество строк");
+int m = Number();
+Console.WriteLine ("Введите количество столбцов");
+int n = Number();
+int [,] matrix = new int[m,n];
+FillArray (matrix);
+Console.WriteLine ("задан массив");
+PrintArray (matrix);
+Console.WriteLine ("массив после сортировки");
+PrintArray(SortRowMatrix(matrix));
+
+Задача 56: Задайте прямоугольный двумерный массив. Напишите программу, которая будет находить строку с наименьшей суммой элементов.
+
+int Number () 
+{
+    while (true)
+    {
+        string text = Console.ReadLine ();
+        if (int.TryParse(text, out int number))
+    {
+        return number;
+        break;
+    }
+    Console.WriteLine("ошибка");
+    }
+}
+
+void PrintArray(int[,] matr)
+{
+    for (int i = 0; i < matr.GetLength(0); i++)
+    {
+        for (int j = 0; j < matr.GetLength(0); j++)
+        {
+            Console.Write($"{matr [i,j]}");
+        }
+        Console.WriteLine (); 
+    }
+
+}
+
+void FillArray(int[,] matr)
+{
+    for (int i = 0; i < matr.GetLength(0); i++)
+    {
+        for (int j = 0; j < matr.GetLength(0); j++)
+        {
+            matr [i,j] = new Random ().Next (1,10);
+        }
+    }
+}
+
+int NumMinSummerRow (int [,]matr)
+{
+    int position=1;
+    int minsumm=0;
+    for (int j = 0; j < matr.GetLength(0); j++)
+    {
+        minsumm += matr [0,j];
+    }
+    for (int i = 0; i < matr.GetLength(0); i++)
+        {
+        int summ = 0;
+        for (int j = 0; j < matr.GetLength(0); j++)
+            {
+                summ += matr[i,j];
+            }
+        if (summ<minsumm)
+        {
+            minsumm=summ;
+            position=i+1;
+        }
+        
+    }
+    return position;
+}
+Console.WriteLine ("Введите количество строк");
+int m = Number();
+Console.WriteLine ("Введите количество столбцов");
+int n = Number();
+int [,] matrix = new int[m,n];
+FillArray (matrix);
+Console.WriteLine ("задан массив");
+PrintArray (matrix);
+Console.WriteLine ($"строка с наименьшей суммой элементов: {NumMinSummerRow(matrix)}");
